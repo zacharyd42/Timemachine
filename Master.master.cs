@@ -10,61 +10,73 @@ using System.Data.SqlClient;
 public partial class Master : System.Web.UI.MasterPage
 {
     #region Variables
-        String str_conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["SEI_TMConnString"].ConnectionString;
+        private String str_conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["SEI_TMConnString"].ConnectionString;
+		
+		private Boolean bool_teacher;
+		private Boolean bool_admin;
+	
+		private Int32 intUserType;
     #endregion
 
     #region Properties
         public String Conn
         {
-            get
-            {
-                return str_conn;
-            }
+            get { return str_conn; }
+        }
+	
+		public Boolean isTeacher
+        {
+            get { return bool_teacher; }
+        }
+	
+		public Boolean isAdmin
+        {
+            get { return bool_teacher; }
+        }
+	
+		public Boolean UserType
+        {
+            get { return intUserType; }
         }
     #endregion
-
-    protected void Page_Load(object sender, EventArgs e)
-    {
-        // Open the connection to DB
-        SqlConnection TM_DB = new SqlConnection(Conn);
-
-        // Open the connection
-        TM_DB.Open();
-
-
-
-
-        TM_DB.Close();
-    }
-
-    // Pulling the DB to load user info
-    private void Load_user(SqlConnection user_db)
-    {
-
-        // Create a command to execute a stored procedure
-        SqlCommand command_GetUser = new SqlCommand("tm_GetUser", user_db);
-        command_GetUser.CommandType = CommandType.StoredProcedure;
-
-        // Add a parameter that's passed to the stored proc,
-        // this is the order ID we selected
-        command_GetUser.Parameters.AddWithValue("@UserID", Session["s_user"].ToString());
-
-        // Get the reader
-        SqlDataReader user_reader = command_GetUser.ExecuteReader();
-
-        // Process each result in the result set
-        if (user_reader.HasRows)
-        {
-            while (user_reader.Read())
-            {
-                break;
-            }
-
-        }
-
-    }
-
-
-
-
+	
+	#region Protected Functions
+	    protected void Page_Load(object sender, EventArgs e)
+	    {
+	        // Open the connection to DB
+	        SqlConnection TM_DB = new SqlConnection(Conn);
+	
+	        // Open the connection
+	        TM_DB.Open();
+			Load_user(TM_DB);
+	        TM_DB.Close();
+	    }
+	#endregion
+	
+	#region Private Functions
+	    // Pulling the DB to load user info
+	    private void Load_user(SqlConnection user_db)
+	    {
+			intUserType = 0;
+			
+	        //Set up the getuser procedure
+	        SqlCommand command_GetUser = new SqlCommand("tm_GetUser", user_db);
+	        command_GetUser.CommandType = CommandType.StoredProcedure;
+	        command_GetUser.Parameters.AddWithValue("@UserID", Session["s_user"].ToString());
+	        SqlDataReader user_reader = command_GetUser.ExecuteReader();
+	
+	        //Get the first user returned
+	        if (user_reader.HasRows)
+	        {
+	            while (user_reader.Read())
+	            {
+					intUserType = (Int32)user_reader["UserType"];
+					break;
+	            }
+	        }
+			
+			bool_teacher = (intUserType >= 1);
+			bool_admin = (intUserType >= 2);
+	    }
+	#endregion
 }
