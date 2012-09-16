@@ -12,8 +12,8 @@ public partial class Master : System.Web.UI.MasterPage
     #region Variables
         private String str_conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["SEI_TMConnString"].ConnectionString;
 		
-		private Boolean bool_teacher;
-		private Boolean bool_admin;
+		private Boolean bool_teacher = false;
+		private Boolean bool_admin = false;
 	
 		private Int32 intUserType;
     #endregion
@@ -34,7 +34,7 @@ public partial class Master : System.Web.UI.MasterPage
             get { return bool_teacher; }
         }
 	
-		public Boolean UserType
+		public Int32 UserType
         {
             get { return intUserType; }
         }
@@ -43,20 +43,27 @@ public partial class Master : System.Web.UI.MasterPage
 	#region Protected Functions
 	    protected void Page_Load(object sender, EventArgs e)
 	    {
-	        // Open DB connection
+            // Open DB connection
 	        SqlConnection TM_DB = new SqlConnection(Conn);
 	        TM_DB.Open();
 
 			// Initial load functions
-			Load_user(TM_DB);
+            if (Session["s_user"] != null)
+                Load_user(TM_DB);
 		
 			// Show proper quicklinks
-			tcClassesProjects.Visible = isTeacher;
+            tcClassesProjects.Visible = isTeacher;
 			tcAdmin.Visible = isAdmin;
 
 			// Close DB connection
 			TM_DB.Close();
 	    }
+
+        protected void lnk_Logout_Click(object sender, EventArgs e)
+        {
+            Session.Remove("s_user");
+            Response.Redirect("Default.aspx");
+        }
 	#endregion
 	
 	#region Private Functions
@@ -69,6 +76,7 @@ public partial class Master : System.Web.UI.MasterPage
 	        SqlCommand command_GetUser = new SqlCommand("tm_GetUser", user_db);
 	        command_GetUser.CommandType = CommandType.StoredProcedure;
 	        command_GetUser.Parameters.AddWithValue("@UserID", Session["s_user"].ToString());
+
 	        SqlDataReader user_reader = command_GetUser.ExecuteReader();
 	
 	        //Get the first user returned
@@ -83,6 +91,7 @@ public partial class Master : System.Web.UI.MasterPage
 			
 			bool_teacher = (intUserType >= 1);
 			bool_admin = (intUserType >= 2);
+            lbl_UserName.Text = Session["s_user"].ToString();
 	    }
 	#endregion
 }
