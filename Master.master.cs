@@ -54,9 +54,10 @@ public partial class Master : System.Web.UI.MasterPage
 			// Show proper quicklinks
             tcClassesProjects.Visible = isTeacher;
 			tcAdmin.Visible = isAdmin;
-
+		
 			// Close DB connection
 			TM_DB.Close();
+			TM_DB.Dispose();
 	    }
 
         protected void lnk_Logout_Click(object sender, EventArgs e)
@@ -88,6 +89,9 @@ public partial class Master : System.Web.UI.MasterPage
 					break;
 	            }
 	        }
+			user_reader.Close();
+			user_reader.Dispose();
+			command_GetUser.Dispose();
 			
 			bool_teacher = (intUserType >= 1);
 			bool_admin = (intUserType >= 2);

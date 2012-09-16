@@ -7,4 +7,6 @@ web.config
 #Solution and project files
 *.sln
 *.csproj
+*.pidb
+*.userprefs
 bin/*
