@@ -43,13 +43,19 @@ public partial class Master : System.Web.UI.MasterPage
 	#region Protected Functions
 	    protected void Page_Load(object sender, EventArgs e)
 	    {
-	        // Open the connection to DB
+	        // Open DB connection
 	        SqlConnection TM_DB = new SqlConnection(Conn);
-	
-	        // Open the connection
 	        TM_DB.Open();
+
+			// Initial load functions
 			Load_user(TM_DB);
-	        TM_DB.Close();
+		
+			// Show proper quicklinks
+			tcClassesProjects.Visible = isTeacher;
+			tcAdmin.Visible = isAdmin;
+
+			// Close DB connection
+			TM_DB.Close();
 	    }
 	#endregion
 	

@@ -7,3 +7,4 @@ web.config
 #Solution and project files
 *.sln
 *.csproj
+bin/*
