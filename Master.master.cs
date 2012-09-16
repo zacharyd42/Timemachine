@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 public partial class Master : System.Web.UI.MasterPage
 {
     #region Variables
+<<<<<<< HEAD
         private String str_conn = System.Web.Configuration.WebConfigurationManager.ConnectionStrings["SEI_TMConnString"].ConnectionString;
 		
 		private Boolean bool_teacher = false;
