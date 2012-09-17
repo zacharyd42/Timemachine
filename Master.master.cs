@@ -85,7 +85,7 @@ public partial class Master : System.Web.UI.MasterPage
 	        {
 	            while (user_reader.Read())
 	            {
-					intUserType = (Int32)user_reader["UserType"];
+                    intUserType = (Int32)user_reader["TypeID"];
 					break;
 	            }
 	        }
