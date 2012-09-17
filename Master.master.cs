@@ -31,7 +31,7 @@ public partial class Master : System.Web.UI.MasterPage
 	
 		public Boolean isAdmin
         {
-            get { return bool_teacher; }
+            get { return bool_admin; }
         }
 	
 		public Int32 UserType
