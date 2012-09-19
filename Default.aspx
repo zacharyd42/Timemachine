@@ -4,13 +4,13 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
+    <title>Login</title>
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-    
-    </div>
+        Username: <asp:TextBox ID="Username" runat="server" /><br />
+        Password: <asp:TextBox ID="password" TextMode="Password" runat="server" /><br />
+        <asp:Button ID="LoginButton" OnClick="LoginButtonClick" Text="Login" runat="server" />
     </form>
 </body>
 </html>
