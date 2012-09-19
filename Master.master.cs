@@ -7,8 +7,6 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 
-// Master
-
 public partial class Master : System.Web.UI.MasterPage
 {
     #region Variables
