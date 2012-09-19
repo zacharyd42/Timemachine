@@ -8,8 +8,9 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        Username: <asp:TextBox ID="Username" runat="server" /><br />
-        Password: <asp:TextBox ID="password" TextMode="Password" runat="server" /><br />
+        <asp:Label ID="lbl_error_message" ForeColor="Red" runat="server" />
+        Username: <asp:TextBox ID="txt_username" runat="server" /><br />
+        Password: <asp:TextBox ID="txt_password" TextMode="Password" runat="server" /><br />
         <asp:Button ID="LoginButton" OnClick="LoginButtonClick" Text="Login" runat="server" />
     </form>
 </body>
