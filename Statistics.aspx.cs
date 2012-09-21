@@ -34,7 +34,7 @@ public partial class Statistics : System.Web.UI.Page
 	private DataTable getStats()
 	{
 		DataColumn dcTemp;
-		DataTable dtStats = new DataTable();
+        DataTable dtStats = new DataTable();
 		dcTemp = new DataColumn("Name");
 		dtStats.Columns.Add (dcTemp);
 		dcTemp = new DataColumn("Sem Total");
@@ -43,10 +43,12 @@ public partial class Statistics : System.Web.UI.Page
 		
 		SqlConnection scstat = new SqlConnection(Master.Conn);
         scstat.Open();
-		
-		SqlCommand cmdGetStats = new SqlCommand("tm_GetWeeklyStats", scstat);
+
+        SqlCommand cmdGetStats = new SqlCommand("tm_GetCourseWeeklyStats", scstat);
         cmdGetStats.CommandType = CommandType.StoredProcedure;
-        cmdGetStats.Parameters.AddWithValue("@ClassID", ddlCourses.SelectedValue);
+        cmdGetStats.Parameters.AddWithValue("@courseID", ddlCourses.SelectedValue);
+        cmdGetStats.Parameters.AddWithValue("@projectID", "-1");
+        cmdGetStats.Parameters.AddWithValue("@userID", ddlTeachers.SelectedValue);
         SqlDataReader rdstats = cmdGetStats.ExecuteReader();
 		
 		if (rdstats.HasRows)
@@ -54,6 +56,7 @@ public partial class Statistics : System.Web.UI.Page
             while (rdstats.Read())
             {
 				//figure out how to parse database return.
+                dtStats.Rows.Add(rdstats["tID"].ToString(), "0");
 			}
 		}
 		
