@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,9 +10,10 @@ using System.Web.UI.WebControls;
 
 public partial class _Default : System.Web.UI.Page
 {
+    string tm_EmptyString = "<br />";
     protected void Page_Load(object sender, EventArgs e)
     {
-        lbl_error_message.Text = String.Empty;
+        lbl_error_message.Text = tm_EmptyString;
     }
     
     protected void LoginButtonClick(object sender, EventArgs e)
@@ -35,6 +36,7 @@ public partial class _Default : System.Web.UI.Page
             {
                 if (ex.ErrorCode == -2147023570) // Login or password is incorrect
                 {
+                    lbl_error_message.Text = "Username or password was invalid.<br />";
                 }
                 return;
             }
@@ -61,7 +63,7 @@ public partial class _Default : System.Web.UI.Page
         }
         else
         {
-            lbl_error_message.Text = "You Fail<br />";
+            lbl_error_message.Text = "You are not a current user.  Please contact the administrator of Time Machine.<br />";
         }
         user_reader.Close();
         user_reader.Dispose();
@@ -71,7 +73,7 @@ public partial class _Default : System.Web.UI.Page
         TM_DB.Close();
         TM_DB.Dispose();
 
-        if (lbl_error_message.Text == String.Empty)
+        if (lbl_error_message.Text == tm_EmptyString)
         {
             Session["s_user"] = txt_username.Text;
             if (intUserType >= 1)

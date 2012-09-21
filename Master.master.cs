@@ -38,6 +38,11 @@ public partial class Master : System.Web.UI.MasterPage
         {
             get { return intUserType; }
         }
+
+        public String UserID
+        {
+            get { return Session["s_user"] != null ? Session["s_user"].ToString ( ) : null; }
+        }
     #endregion
 	
 	#region Protected Functions
