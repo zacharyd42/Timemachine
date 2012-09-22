@@ -22,14 +22,12 @@
                        SelectCommand="tm_GetCourseWeeklyStats">
 		<SelectParameters>
             <asp:ControlParameter Name="courseID" ControlID="ddlCourses" />
-            <asp:Parameter Name="projectID" DefaultValue="-1" />
-            <asp:ControlParameter Name="userID" ControlID="ddlTeachers" />
         </SelectParameters>
     </asp:SqlDataSource>
 
     
-    <asp:DropDownList ID="ddlTeachers" DataSourceID="sqlTeachers" DataTextField="TeacherID" DataValueField="TeacherID" AutoPostBack="true" OnChanged="ddlTeachers_OnChanged" runat="server" />&nbsp;&nbsp;
-	<asp:DropDownList ID="ddlCourses" DataSourceID="sqlCourses" DataTextField="cName" DataValueField="ID" AutoPostBack="true" OnChanged="ddlCourses_OnChanged" runat="server" />
+    <asp:DropDownList ID="ddlTeachers" DataSourceID="sqlTeachers" DataTextField="TeacherID" DataValueField="TeacherID" AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_OnChanged" runat="server" />&nbsp;&nbsp;
+	<asp:DropDownList ID="ddlCourses" DataSourceID="sqlCourses" DataTextField="cName" DataValueField="ID" AutoPostBack="true" OnSelectedIndexChanged="ddlCourses_OnChanged" runat="server" />
     <br /><br />
     <asp:GridView ID="gdvStats" AutoGenerateColumns="false" runat="server" />
 </asp:Content>
