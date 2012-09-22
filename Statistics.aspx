@@ -1,45 +1,35 @@
 ﻿<%@ Page Title="Statistics" Language="C#" MasterPageFile="~/Master.master" AutoEventWireup="true" CodeFile="Statistics.aspx.cs" Inherits="Statistics" %>
 
 <%@ MasterType VirtualPath="~/Master.master" %>
-
-<asp:Content ID="Content4" ContentPlaceHolderID="cph_Head" Runat="Server"> 
-</asp:Content> 
-<asp:Content ID="Content5" ContentPlaceHolderID="cph_Body" Runat="Server">
-    <asp:DropDownList id="testddl" AutoPostBack="true" runat="server">
-        <asp:ListItem Text="BLUE" Value="1">blue</asp:ListItem>
-        <asp:ListItem Text="RED" Value="2">red</asp:ListItem>
-    </asp:DropDownList>
-
-<!-- BODY GOES HERE! 
-
-   <asp:SqlDataSource 
-      ID="sqlCourses" 
-      runat="server"
-      ConnectionString='<%$ connectionStrings:SEI_TMConnString %>' 
-      SelectCommandType="StoredProcedure" 
-      SelectCommand="tm_GetTeachersCourses">
-
-      <SelectParameters> 
-         <asp:ControlParameter Name="TeacherID" ControlID="ddlTeacher" /> 
-      </SelectParameters>
-
-   </asp:SqlDataSource>
--->
-
-   <asp:DropDownList id="ddlCourses" AutoPostBack="true" DataSourceID="sqlCourses" DataTextField="cname" DataValueField="ID" runat="server" />
-
-
-   <!-- 
-   <asp:DropDownList id="ddlCourse" runat="server" AutoPostBack="true"> 
-      <asp:ListItem>Selection 1</asp:ListItem> 
-      <asp:ListItem>Selection 2</asp:ListItem> 
-      <asp:ListItem>Selection 3</asp:ListItem> 
-   </asp:DropDownList> 
-   -->
-
-
+<asp:Content ID="Content1" ContentPlaceHolderID="cph_Head" Runat="Server">
 </asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="cph_Body" Runat="Server">
+    <asp:SqlDataSource ID="sqlTeachers" runat="server" ConnectionString='<%$ connectionStrings:SEI_TMConnString %>'
+                       SelectCommandType="StoredProcedure"
+                       SelectCommand="tm_GetTeachers">
+    </asp:SqlDataSource>
+	
+	<asp:SqlDataSource ID="sqlCourses" runat="server" ConnectionString='<%$ connectionStrings:SEI_TMConnString %>'
+                       SelectCommandType="StoredProcedure"
+                       SelectCommand="tm_GetTeachersCourses">
+        <SelectParameters>
+            <asp:ControlParameter Name="TeacherID" ControlID="ddlTeachers" />
+        </SelectParameters>
+    </asp:SqlDataSource>
 
+    <asp:SqlDataSource ID="sqlStats" runat="server" ConnectionString='<%$ connectionStrings:SEI_TMConnString %>'
+                       SelectCommandType="StoredProcedure"
+                       SelectCommand="tm_GetCourseWeeklyStats">
+		<SelectParameters>
+            <asp:ControlParameter Name="courseID" ControlID="ddlCourses" />
+        </SelectParameters>
+    </asp:SqlDataSource>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="cph_Foot" Runat="Server"> 
+    
+    <asp:DropDownList ID="ddlTeachers" DataSourceID="sqlTeachers" DataTextField="TeacherID" DataValueField="TeacherID" AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_OnChanged" runat="server" />&nbsp;&nbsp;
+	<asp:DropDownList ID="ddlCourses" DataSourceID="sqlCourses" DataTextField="cName" DataValueField="ID" AutoPostBack="true" OnSelectedIndexChanged="ddlCourses_OnChanged" runat="server" />
+    <br /><br />
+    <asp:GridView ID="gdvStats" AutoGenerateColumns="false" runat="server" />
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="cph_Foot" Runat="Server">
 </asp:Content>
