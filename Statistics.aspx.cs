@@ -9,8 +9,6 @@ public partial class Statistics : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //ddlTeacher.DataBind();
-        //ddlCourses.DataBind();
-        Response.Write(gdvStats.Rows.Count.ToString());
+
     }
 }
