@@ -46,8 +46,12 @@ public partial class Master : System.Web.UI.MasterPage
     #endregion
 	
 	#region Protected Functions
-	    protected void Page_Load(object sender, EventArgs e)
+	    protected void Page_Init(object sender, EventArgs e)
 	    {
+            // Redirect to login if there is no user
+            if (Session["s_user"] == null)
+                Response.Redirect("Default.aspx");
+
             // Open DB connection
 	        SqlConnection TM_DB = new SqlConnection(Conn);
 	        TM_DB.Open();
