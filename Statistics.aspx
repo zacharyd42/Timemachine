@@ -16,9 +16,11 @@
             <asp:ControlParameter Name="TeacherID" ControlID="ddlTeachers" />
         </SelectParameters>
     </asp:SqlDataSource>
-    
-    <asp:DropDownList ID="ddlTeachers" DataSourceID="sqlTeachers" DataTextField="TeacherID" DataValueField="TeacherID" AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_OnChanged" runat="server" Width="100"/>&nbsp;&nbsp;
-	<asp:DropDownList ID="ddlCourses" DataSourceID="sqlCourses" DataTextField="cName" DataValueField="ID" AutoPostBack="true" OnSelectedIndexChanged="ddlCourses_OnChanged" runat="server" Width="175" />
+    <br />&nbsp;&nbsp;
+    <asp:DropDownList ID="ddlTeachers" DataSourceID="sqlTeachers" DataTextField="TeacherID" DataValueField="TeacherID" 
+        AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_OnChanged" runat="server" Width="100"/>&nbsp;&nbsp;
+	<asp:DropDownList ID="ddlCourses" DataSourceID="sqlCourses" DataTextField="cName" DataValueField="ID" 
+        AutoPostBack="true" OnSelectedIndexChanged="ddlCourses_OnChanged" runat="server" Width="175" />
     <br /><br />
     <asp:GridView ID="gdvStats" AutoGenerateColumns="false" runat="server" />
 </asp:Content>
