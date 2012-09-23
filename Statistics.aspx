@@ -16,18 +16,9 @@
             <asp:ControlParameter Name="TeacherID" ControlID="ddlTeachers" />
         </SelectParameters>
     </asp:SqlDataSource>
-
-    <asp:SqlDataSource ID="sqlStats" runat="server" ConnectionString='<%$ connectionStrings:SEI_TMConnString %>'
-                       SelectCommandType="StoredProcedure"
-                       SelectCommand="tm_GetCourseWeeklyStats">
-		<SelectParameters>
-            <asp:ControlParameter Name="courseID" ControlID="ddlCourses" />
-        </SelectParameters>
-    </asp:SqlDataSource>
-
     
-    <asp:DropDownList ID="ddlTeachers" DataSourceID="sqlTeachers" DataTextField="TeacherID" DataValueField="TeacherID" AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_OnChanged" runat="server" />&nbsp;&nbsp;
-	<asp:DropDownList ID="ddlCourses" DataSourceID="sqlCourses" DataTextField="cName" DataValueField="ID" AutoPostBack="true" OnSelectedIndexChanged="ddlCourses_OnChanged" runat="server" />
+    <asp:DropDownList ID="ddlTeachers" DataSourceID="sqlTeachers" DataTextField="TeacherID" DataValueField="TeacherID" AutoPostBack="true" OnSelectedIndexChanged="ddlTeachers_OnChanged" runat="server" Width="100"/>&nbsp;&nbsp;
+	<asp:DropDownList ID="ddlCourses" DataSourceID="sqlCourses" DataTextField="cName" DataValueField="ID" AutoPostBack="true" OnSelectedIndexChanged="ddlCourses_OnChanged" runat="server" Width="175" />
     <br /><br />
     <asp:GridView ID="gdvStats" AutoGenerateColumns="false" runat="server" />
 </asp:Content>
